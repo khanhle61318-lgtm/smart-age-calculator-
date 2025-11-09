@@ -2,7 +2,8 @@ import streamlit as st
 import time
 
 # -------------------------------
-st.markdown("## 🧠 Máy tính tuổi thông minh")
+st.markdown("""### 🧠 Máy tính tuổi thông minh
+                                            cre:ditmewibu.com""")
 st.markdown("---")
 
 # -------------------------------
