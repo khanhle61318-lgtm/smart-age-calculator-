@@ -2,12 +2,10 @@ import streamlit as st
 import time
 
 # -------------------------------
-# Tiêu đề app
 st.markdown("## 🧠 Máy tính tuổi thông minh")
 st.markdown("---")
 
 # -------------------------------
-# Hàm loading mô phỏng
 def loading(message="Đang xử lý...", t1=2, t2=1):
     st.info(message)
     time.sleep(t1)
@@ -15,16 +13,13 @@ def loading(message="Đang xử lý...", t1=2, t2=1):
     time.sleep(t2)
 
 # -------------------------------
-# Khởi tạo session_state để lưu giá trị input
 if 'age_input' not in st.session_state:
     st.session_state.age_input = ""
 
 # -------------------------------
-# Nhập tuổi
 age = st.text_input("🤨 Nhập tuổi của bạn:", key="age_input").strip()
 
 # -------------------------------
-# Button gửi
 if st.button("Gửi", key="send"):
     if not age:
         st.warning("⚠️ Bạn không nhập gì!")
@@ -46,7 +41,9 @@ col1, col2 = st.columns(2)
 
 with col1:
     if st.button("🔄 Nhập lại", key="retry"):
+        st.toast("Đang làm mới...", icon="🔁")
         st.session_state.age_input = ""
+        time.sleep(0.5)
         st.experimental_rerun()
 
 with col2:
