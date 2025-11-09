@@ -6,11 +6,13 @@ st.markdown("## 🧠 Máy tính tuổi thông minh")
 st.markdown("---")
 
 # -------------------------------
-def loading(message="Đang xử lý...", t1=2, t2=1):
-    st.info(message)
-    time.sleep(t1)
-    st.info("...")
-    time.sleep(t2)
+def loading(message="Đang xử lý...", steps=50, delay=0.05, done_message="✅ Hoàn tất!"):
+    with st.spinner(message):
+        progress = st.progress(0)
+        for i in range(steps):
+            time.sleep(delay)
+            progress.progress(int((i + 1) / steps * 100))
+    st.success(done_message)
 
 # -------------------------------
 if 'age_input' not in st.session_state:
@@ -29,10 +31,10 @@ if st.button("Gửi", key="send"):
             loading()
             st.success(f"✅ Tuổi của bạn là: {age}")
         else:
-            loading(" 😠 r u fu**ing stupid huh?", 1, 1)
+            loading(" 😠 bạn bị gì đấy ?", 1, 1)
             st.error("😭 Đây là tuổi loz gì thế ?!!")
     else:
-        loading()
+        loading("Đang kiểm tra...", done_message="⚠️ Lỗi cmnr!")
         st.warning("⚠️ Đây không phải tuổi của bạn, đúng không? ĐÚNG KHÔNG?")
 
 # -------------------------------
@@ -41,13 +43,11 @@ col1, col2 = st.columns(2)
 
 with col1:
     if st.button("🔄 Nhập lại", key="retry"):
-        st.toast("Đang làm mới...", icon="🔁")
-        st.session_state.age_input = ""
-        time.sleep(0.5)
-        st.experimental_rerun()
+        st.session_state.clear()
+        st.rerun()
 
 with col2:
     if st.button("🚪 Thoát", key="exit"):
-        st.balloons()  # Thêm animation vui nhộn
+        st.balloons()
         st.write("👋🍀x36 Tạm biệt!")
         st.stop()
