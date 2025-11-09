@@ -1,5 +1,16 @@
 import streamlit as st
 import time
+VALID_TOKENS = ["khóm", "khánh"]
+
+# Nhập token
+token = st.text_input("Nhập mật khẩu hoặc token để truy cập app:")
+
+if token not in VALID_TOKENS:
+    st.warning("⚠️ Không hợp lệ! Bạn không thể vào app.")
+    st.stop()  # dừng app nếu token sai
+else:
+    st.success("✅ Chào mừng bạn!")
+    st.write("Nội dung app ở đây...")
 
 is_mobile = st.sidebar.checkbox("Mobile mode")  # if st.button("Gửi", key="send"):
 
