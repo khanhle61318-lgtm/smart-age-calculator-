@@ -55,9 +55,11 @@ if not is_mobile:
     col1, col2 = st.columns(2)
     
     with col1:
-        if st.button("🔄 Nhập lại"):
+        rerun_button = st.button("🔄 Nhập lại")
+        if rerun_button:
             st.session_state.clear()
             st.experimental_rerun()
+
     with col2:
         if st.button("🚪 Thoát"):
             st.markdown("""
@@ -69,11 +71,12 @@ if not is_mobile:
             time.sleep(2)
             st.write("👋 Tạm biệt!")
             st.stop()
-
 else:  # mobile
-    if st.button("🔄 Nhập lại"):
+    rerun_button = st.button("🔄 Nhập lại")
+    if rerun_button:
         st.session_state.clear()
         st.experimental_rerun()
+    
     if st.button("🚪 Thoát"):
         st.markdown("""
         <iframe width="400" height="300" 
