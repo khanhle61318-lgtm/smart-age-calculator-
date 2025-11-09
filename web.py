@@ -1,9 +1,12 @@
 import streamlit as st
 import time
 
-# -------------------------------
-st.markdown("""### 🧠 Máy tính tuổi thông minh
-                                            cre:ditmewibu.com""")
+is_mobile = st.sidebar.checkbox("Mobile mode")  # hoặc tự động xác định width JS
+
+# --- Header ---
+st.markdown("### 🧠 Máy tính tuổi thông minh" if not is_mobile else "### máy tính tuổi")
+if not is_mobile:
+    st.markdown("cre:ditmewibu.com")
 st.markdown("---")
 
 # -------------------------------
