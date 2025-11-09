@@ -58,7 +58,6 @@ if not is_mobile:
         rerun_button = st.button("🔄 Nhập lại")
         if rerun_button:
             st.session_state.clear()
-            st.experimental_rerun()
 
     with col2:
         if st.button("🚪 Thoát"):
@@ -75,7 +74,6 @@ else:  # mobile
     rerun_button = st.button("🔄 Nhập lại")
     if rerun_button:
         st.session_state.clear()
-        st.experimental_rerun()
     
     if st.button("🚪 Thoát"):
         st.markdown("""
