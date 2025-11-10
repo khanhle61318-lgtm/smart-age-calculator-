@@ -47,14 +47,18 @@ age = ''.join(c for c in age_input if c.isdigit())
 # Nút gửi --------------------------------------
 if st.button("Gửi"):
     steps = 10 if is_mobile else 50  # số bước progress responsive
-    if not age:
-        st.warning("⚠️ Bạn không nhập gì!")
+    if not age_input:
+        st.warning("⚠️ lỗi cmnr, Bạn không nhập gì!")  # Trống hoàn toàn
+    elif age_input.isspace() or "\t" in age_input:
+        st.warning("⚠️ lỗi cmnr — không hợp lệ!")  # space/tab
+    elif not age:  
+        st.warning("⚠️ lỗi cmnr, đây là quái gì vậy? 🥀 - không hợp lệ")  # toàn chữ
     else:
         age_int = int(age)
         if age_int == 36:
             loading(steps=steps)
-            st.success(f"✅ Tuổi của bạn là {age_int}, Bro, you’re absolutely like someone from Thanh Hoá!")
-        elif age_int <= 1000000:
+            st.success(f"✅ Tuổi của bạn là {age_int}, Bro, you’re absolutely like someone from Thanh Hoá!☘️☘️☘️")
+        elif age_int <= 3**3636:
             loading(steps=steps)
             st.success(f"✅ Tuổi của bạn là: {age_int}")
         else:
@@ -64,11 +68,16 @@ if st.button("Gửi"):
 # Nút Nhập lại / Thoát-------------
 if not is_mobile:
     col1, col2 = st.columns(2)
-    
+
     with col1:
-        rerun_button = st.button("🔄 Nhập lại")
-        if rerun_button:
-            st.session_state.clear()
+        if st.button("🔄 Nhập lại"):
+            # Nếu người dùng nhập sai (trống, space, tab)
+            if not age_input or age_input.isspace() or "\t" in age_input:
+                for key in list(st.session_state.keys()):
+                    if key not in ["token", "is_mobile"]:  # giữ lại token & chế độ
+                        del st.session_state[key]
+            # Luôn làm mới giao diện
+            st.experimental_rerun()
 
     with col2:
         if st.button("🚪 Thoát"):
@@ -79,13 +88,17 @@ if not is_mobile:
             </iframe>
             """, unsafe_allow_html=True)
             time.sleep(2)
-            st.write("👋 Tạm biệt!")
+            st.write("👋 Tạm biệt!☘️")
             st.stop()
+
 else:  # mobile
-    rerun_button = st.button("🔄 Nhập lại")
-    if rerun_button:
-        st.session_state.clear()
-    
+    if st.button("🔄 Nhập lại"):
+        if not age_input or age_input.isspace() or "\t" in age_input:
+            for key in list(st.session_state.keys()):
+                if key not in ["token", "is_mobile"]:
+                    del st.session_state[key]
+        st.experimental_rerun()
+
     if st.button("🚪 Thoát"):
         st.markdown("""
         <iframe width="400" height="300" 
@@ -94,5 +107,5 @@ else:  # mobile
         </iframe>
         """, unsafe_allow_html=True)
         time.sleep(2)
-        st.write("👋 Tạm biệt!")
+        st.write("👋 Tạm biệt!☘️")
         st.stop()
